@@ -4,75 +4,189 @@
 
 body {
   margin: 0;
-  height: 100vh;
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  font-family: "Poppins", Arial, sans-serif;
+  background:
+    radial-gradient(circle at top left, #ffdde1, transparent 35%),
+    radial-gradient(circle at bottom right, #ee9ca7, transparent 35%),
+    linear-gradient(135deg, #ff758c, #ff7eb3);
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  padding: 20px;
 }
 
-.container {
-  text-align: center;
-  padding: 20px;
+.card {
   width: 100%;
+  max-width: 390px;
+  min-height: 560px;
+  padding: 34px 24px;
+  border-radius: 32px;
+  text-align: center;
+  color: white;
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 25px 70px rgba(255, 45, 120, 0.35);
+  border: 1px solid rgba(255,255,255,0.35);
+  position: relative;
+  z-index: 2;
+  animation: popIn 0.8s ease;
+}
+
+.small-text {
+  font-size: 15px;
+  opacity: 0.9;
+  margin-bottom: 10px;
 }
 
 h1 {
-  color: white;
-  font-size: 6vw;
-  margin-bottom: 40px;
+  font-size: 36px;
+  line-height: 1.15;
+  margin: 0;
+  text-shadow: 0 4px 18px rgba(0,0,0,0.18);
+}
+
+.desc {
+  margin: 18px auto 30px;
+  font-size: 15px;
+  opacity: 0.9;
+  max-width: 280px;
 }
 
 .buttons {
   position: relative;
-  height: 200px;
+  height: 230px;
+  margin-top: 10px;
 }
 
 button {
   border: none;
-  border-radius: 15px;
+  border-radius: 999px;
   cursor: pointer;
   position: absolute;
-  transition: 0.2s ease;
+  font-weight: 800;
+  transition: 0.25s ease;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
 
-/* tombol YES */
 #yes {
-  background: #00ff88;
-  font-size: 5vw;
-  padding: 15px 25px;
-  left: 25%;
+  background: linear-gradient(135deg, #39ff88, #00d26a);
+  color: white;
+  font-size: 22px;
+  padding: 15px 30px;
+  left: 15%;
+  top: 55px;
+  animation: pulse 1.4s infinite;
 }
 
-/* tombol NO */
 #no {
-  background: #ff4d4d;
-  font-size: 5vw;
-  padding: 15px 25px;
-  left: 55%;
+  background: linear-gradient(135deg, #ff4d6d, #c9184a);
+  color: white;
+  font-size: 22px;
+  padding: 15px 30px;
+  right: 15%;
+  top: 55px;
 }
 
 #message {
-  margin-top: 60px;
-  color: white;
-  font-size: 5vw;
-  text-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  margin-top: 10px;
+  font-size: 26px;
+  line-height: 1.25;
+  text-shadow: 0 5px 18px rgba(0,0,0,0.22);
 }
 
-/* khusus HP kecil */
-@media (max-width: 480px) {
+.hearts span {
+  position: absolute;
+  font-size: 34px;
+  animation: float 7s infinite ease-in-out;
+  opacity: 0.75;
+}
+
+.hearts span:nth-child(1) {
+  left: 8%;
+  bottom: -40px;
+  animation-delay: 0s;
+}
+
+.hearts span:nth-child(2) {
+  left: 25%;
+  bottom: -50px;
+  animation-delay: 1.2s;
+}
+
+.hearts span:nth-child(3) {
+  left: 52%;
+  bottom: -45px;
+  animation-delay: 2.1s;
+}
+
+.hearts span:nth-child(4) {
+  left: 72%;
+  bottom: -50px;
+  animation-delay: 3s;
+}
+
+.hearts span:nth-child(5) {
+  left: 88%;
+  bottom: -40px;
+  animation-delay: 4s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) scale(0.8) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.4) rotate(25deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.88) translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 430px) {
+  .card {
+    max-width: 350px;
+    min-height: 540px;
+    padding: 30px 20px;
+  }
+
   h1 {
-    font-size: 7vw;
+    font-size: 32px;
+  }
+
+  .buttons {
+    height: 220px;
   }
 
   #yes, #no {
-    font-size: 6vw;
-    padding: 12px 20px;
+    font-size: 20px;
+    padding: 14px 26px;
   }
 
-  #message {
-    font-size: 6vw;
+  #yes {
+    left: 9%;
+  }
+
+  #no {
+    right: 9%;
   }
 }
