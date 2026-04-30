@@ -1,192 +1,61 @@
-* {
-  box-sizing: border-box;
-}
+const noBtn = document.getElementById("no");
+const yesBtn = document.getElementById("yes");
+const message = document.getElementById("message");
+const title = document.getElementById("title");
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: "Poppins", Arial, sans-serif;
-  background:
-    radial-gradient(circle at top left, #ffdde1, transparent 35%),
-    radial-gradient(circle at bottom right, #ee9ca7, transparent 35%),
-    linear-gradient(135deg, #ff758c, #ff7eb3);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  padding: 20px;
-}
+const wrongSound = document.getElementById("wrongSound");
+const correctSound = document.getElementById("correctSound");
 
-.card {
-  width: 100%;
-  max-width: 390px;
-  min-height: 560px;
-  padding: 34px 24px;
-  border-radius: 32px;
-  text-align: center;
-  color: white;
-  background: rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(18px);
-  box-shadow: 0 25px 70px rgba(255, 45, 120, 0.35);
-  border: 1px solid rgba(255,255,255,0.35);
-  position: relative;
-  z-index: 2;
-  animation: popIn 0.8s ease;
-}
+let noClickCount = 0;
+let yesSize = 22;
 
-.small-text {
-  font-size: 15px;
-  opacity: 0.9;
-  margin-bottom: 10px;
-}
+noBtn.addEventListener("click", () => {
+  noClickCount++;
 
-h1 {
-  font-size: 36px;
-  line-height: 1.15;
-  margin: 0;
-  text-shadow: 0 4px 18px rgba(0,0,0,0.18);
-}
+  wrongSound.currentTime = 0;
+  wrongSound.play();
 
-.desc {
-  margin: 18px auto 30px;
-  font-size: 15px;
-  opacity: 0.9;
-  max-width: 280px;
-}
+  const x = Math.random() * 180 - 90;
+  const y = Math.random() * 160 - 80;
 
-.buttons {
-  position: relative;
-  height: 230px;
-  margin-top: 10px;
-}
+  noBtn.style.transform = `translate(${x}px, ${y}px) rotate(${Math.random() * 20 - 10}deg)`;
 
-button {
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-  position: absolute;
-  font-weight: 800;
-  transition: 0.25s ease;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
-}
+  yesSize += 8;
+  yesBtn.style.fontSize = yesSize + "px";
+  yesBtn.style.padding = `${yesSize / 1.5}px ${yesSize * 1.3}px`;
 
-#yes {
-  background: linear-gradient(135deg, #39ff88, #00d26a);
-  color: white;
-  font-size: 22px;
-  padding: 15px 30px;
-  left: 15%;
-  top: 55px;
-  animation: pulse 1.4s infinite;
-}
-
-#no {
-  background: linear-gradient(135deg, #ff4d6d, #c9184a);
-  color: white;
-  font-size: 22px;
-  padding: 15px 30px;
-  right: 15%;
-  top: 55px;
-}
-
-#message {
-  margin-top: 10px;
-  font-size: 26px;
-  line-height: 1.25;
-  text-shadow: 0 5px 18px rgba(0,0,0,0.22);
-}
-
-.hearts span {
-  position: absolute;
-  font-size: 34px;
-  animation: float 7s infinite ease-in-out;
-  opacity: 0.75;
-}
-
-.hearts span:nth-child(1) {
-  left: 8%;
-  bottom: -40px;
-  animation-delay: 0s;
-}
-
-.hearts span:nth-child(2) {
-  left: 25%;
-  bottom: -50px;
-  animation-delay: 1.2s;
-}
-
-.hearts span:nth-child(3) {
-  left: 52%;
-  bottom: -45px;
-  animation-delay: 2.1s;
-}
-
-.hearts span:nth-child(4) {
-  left: 72%;
-  bottom: -50px;
-  animation-delay: 3s;
-}
-
-.hearts span:nth-child(5) {
-  left: 88%;
-  bottom: -40px;
-  animation-delay: 4s;
-}
-
-@keyframes float {
-  0% {
-    transform: translateY(0) scale(0.8) rotate(0deg);
+  if (noClickCount >= 5) {
+    noBtn.style.display = "none";
+    message.innerText = "Tombol NO udah nyerah. Tinggal pilih yang bener.";
   }
-  100% {
-    transform: translateY(-110vh) scale(1.4) rotate(25deg);
-  }
-}
+});
 
-@keyframes pulse {
-  0%, 100% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.08);
-  }
-}
+yesBtn.addEventListener("click", () => {
+  correctSound.currentTime = 0;
+  correctSound.play();
 
-@keyframes popIn {
-  from {
-    opacity: 0;
-    transform: scale(0.88) translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-  }
-}
+  title.innerText = "YEAYYY 💖";
+  message.innerText = "Makasih udah mau nerima aku 💕";
+  noBtn.style.display = "none";
+  yesBtn.style.display = "none";
 
-@media (max-width: 430px) {
-  .card {
-    max-width: 350px;
-    min-height: 540px;
-    padding: 30px 20px;
-  }
+  confetti({
+    particleCount: 250,
+    spread: 120,
+    origin: { y: 0.65 }
+  });
 
-  h1 {
-    font-size: 32px;
-  }
+  setTimeout(() => {
+    confetti({
+      particleCount: 150,
+      spread: 90,
+      origin: { x: 0.2, y: 0.7 }
+    });
 
-  .buttons {
-    height: 220px;
-  }
-
-  #yes, #no {
-    font-size: 20px;
-    padding: 14px 26px;
-  }
-
-  #yes {
-    left: 9%;
-  }
-
-  #no {
-    right: 9%;
-  }
-}
+    confetti({
+      particleCount: 150,
+      spread: 90,
+      origin: { x: 0.8, y: 0.7 }
+    });
+  }, 500);
+});
